@@ -27,6 +27,7 @@ class MessageInput extends Component {
           id="messageInput"
           name="message"
           onChange={this.changeValue}
+          rows={10}
           type="textarea"
           value={this.props.getValue() || ''}
         />

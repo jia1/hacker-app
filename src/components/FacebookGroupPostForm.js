@@ -46,11 +46,16 @@ class FacebookGroupPostForm extends React.Component {
 
   render() {
     return (
-      <Formsy onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+      <Formsy
+        onValidSubmit={this.submit}
+        onValid={this.enableButton}
+        onInvalid={this.disableButton}
+      >
         <MessageInput
           name="message"
           validations="minLength:10,maxLength:63206"
           validationError="Your message is either too short or too long."
+          value={this.props.messageTemplate}
           required
         />
         <Button type="submit" disabled={!this.getCanSubmit.bind(this)}>Submit</Button>

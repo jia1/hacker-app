@@ -30,24 +30,27 @@ class FacebookLogin extends Component {
   constructor(props) {
     super(props);
     this.state = loggedOutState;
+    console.log('FacebookLogin: constructor(props) done.');
   }
 
   logout() {
     this.setState(
       loggedOutState,
-      () => this.props.broadcastLoginState(this.state)
+      () => {
+        this.props.broadcastLoginState(this.state);
+        console.log(`logout: ${JSON.stringify(this.state)}`);
+      }
     );
   };
 
-  facebookResponse(response) {
-    this.setState(
-      {
-        isLoggedIn: true,
-        ...response
-      },
-      () => this.props.broadcastLoginState(this.state)
-    );
-    console.log(this.state);
+  loginCallback(response) {
+    this.setState({
+      isLoggedIn: true,
+      ...response
+    }, () => {
+      this.props.broadcastLoginState(this.state)
+      console.log(`loginCallback: ${JSON.stringify(this.state)}`);
+    });
   }
 
   onFailure(error) {
@@ -55,29 +58,33 @@ class FacebookLogin extends Component {
   }
 
   render() {
-    let loginComponent = this.state.isLoggedIn ?
-    (
-      <Row>
-        <Col md="9" sm="6">
-          Good day, {this.state.name}!
-        </Col>
-        <Col md="3" sm="6">
-          <Button onClick={this.logout.bind(this)} size="sm">Logout</Button>
-        </Col>
-      </Row>
-    ) :
-    (
-      <div>
-        <FacebookLoginComponent
-          appId="1515880591891817"
-          autoLoad={false}
-          scope="publish_to_groups"
-          callback={this.facebookResponse.bind(this)} />
-      </div>
-    );
+    console.log("FacebookLogin: render() in progress...");
     return (
       <div>
-        {loginComponent}
+        {this.state.isLoggedIn ?
+          (
+            <Row>
+              <Col md={{size: 6, offset: 3}} sm="6">
+                Good day, {this.state.name}!
+              </Col>
+              <Col md="3" sm="6">
+                <Button onClick={this.logout.bind(this)} size="sm">Logout</Button>
+              </Col>
+            </Row>
+          ) :
+          (
+            <Row>
+              <Col md="12">
+                <FacebookLoginComponent
+                  appId="1515880591891817"
+                  autoLoad={true}
+                  scope="publish_to_groups"
+                  callback={this.loginCallback.bind(this)}
+                />
+              </Col>
+            </Row>
+          )
+        }
       </div>
     );
   }

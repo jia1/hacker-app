@@ -8,15 +8,28 @@ import {
   facebookLoggedOutState
 } from './../components';
 
+const facebookGroupPostTemplateType = 'facebookGroupPost';
+
 // https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
 class FacebookGroupPage extends Component {
   constructor(props) {
     super(props);
-    this.state = facebookLoggedOutState;
+    this.state = {
+      loginState: facebookLoggedOutState,
+      messageTemplate: ''
+    };
   }
 
   updateLoginState(loginState) {
-    this.setState(loginState);
+    this.setState({
+      loginState
+    });
+  }
+
+  updateMessageTemplate(messageTemplate) {
+    this.setState({
+      messageTemplate
+    });
   }
 
   render() {
@@ -28,22 +41,32 @@ class FacebookGroupPage extends Component {
           </Col>  
         </Row>
         <Row>
-          <Col md="3">
-            <SideTabs templateType="facebookGroupPost" />
-          </Col>
-          <Col md="9">
-            <Row>
-              <Col md="12">
-                <FacebookLogin broadcastLoginState={this.updateLoginState.bind(this)} />
-              </Col>
-            </Row>
-            <Row>
-              <Col md="12">
-                <FacebookGroup loginState={this.state} />
-              </Col>
-            </Row>
+          <Col md="12">
+            <FacebookLogin broadcastLoginState={this.updateLoginState.bind(this)} />
           </Col>
         </Row>
+        {this.state.loginState.isLoggedIn ?
+          (
+            <Row>
+              <Col md="3">
+                <SideTabs
+                  templateType={facebookGroupPostTemplateType}
+                  broadcastMessageTemplate={this.updateMessageTemplate.bind(this)}
+                />
+              </Col>
+              <Col md="9">
+                <FacebookGroup
+                  accessToken={this.state.loginState.accessToken}
+                  messageTemplate={this.state.messageTemplate}
+                />
+              </Col>
+            </Row>
+          ) :
+          (
+            <div>
+            </div>
+          )
+        }
       </Container>
     );
   }
