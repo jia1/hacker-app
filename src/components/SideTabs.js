@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'reactstrap';
-
-const templatesRootDirectory = '../constants/templates';
+import { MessageTemplates } from '../constants/templates';
 
 class SideTabs extends Component {
   constructor(props) {
     super(props);
+    const templates = MessageTemplates[this.props.templateType];
     this.state = {
-      templateCount: 0,
-      templateMap: {}
+      templateCount: templates.length,
+      templates
     };
-    const templatesDirectory = `${templatesRootDirectory}/${this.props.templateType}`;
-    // TODO: Count number of template files (no need to open each file)
   }
 
   useTemplate(event, templateId) {
-    // TODO: Lazy load templates
+    // TODO: Load template into form
     console.log(event);
     console.log(templateId);
   }

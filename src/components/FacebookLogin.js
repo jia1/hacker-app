@@ -40,11 +40,14 @@ class FacebookLogin extends Component {
   };
 
   facebookResponse(response) {
-    this.setState({
-      isLoggedIn: true,
-      ...response
-    });
-    this.props.broadcastLoginState(this.state);
+    this.setState(
+      {
+        isLoggedIn: true,
+        ...response
+      },
+      () => this.props.broadcastLoginState(this.state)
+    );
+    console.log(this.state);
   }
 
   onFailure(error) {

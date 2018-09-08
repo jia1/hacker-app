@@ -33,14 +33,14 @@ class FacebookGroupPostForm extends React.Component {
   }
 
   submit(model) {
-    const body = {
-      'access_token': this.props.accessToken,
-      ...model
-    };
-    console.log(body);
+    // https://developers.facebook.com/docs/groups-api/common-uses#posting-on-a-group
+    // curl -i -X POST -F "message={message}" -F "access_token={accessToken}" {url}
+    const body = new FormData();
+    body.append("message", model.message);
+    body.append("access_token", this.props.accessToken);
     fetch(facebookGroupFeed, {
-      method: 'POST',
-      body: body
+      body,
+      method: "POST"
     });
   }
 
