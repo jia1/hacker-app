@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import FacebookLoginComponent from 'react-facebook-login';
 
 /*
@@ -33,7 +33,10 @@ class FacebookLogin extends Component {
   }
 
   logout() {
-    this.setState(loggedOutState);
+    this.setState(
+      loggedOutState,
+      () => this.props.broadcastLoginState(this.state)
+    );
   };
 
   facebookResponse(response) {
@@ -42,7 +45,6 @@ class FacebookLogin extends Component {
       ...response
     });
     this.props.broadcastLoginState(this.state);
-    console.log(this.state);
   }
 
   onFailure(error) {
@@ -50,16 +52,16 @@ class FacebookLogin extends Component {
   }
 
   render() {
-    let loginComponent = !!this.state.isLoggedIn ?
+    let loginComponent = this.state.isLoggedIn ?
     (
-      <div>
-        <p>Good day, {this.state.name}!</p>
-        <div>
-          <Button onClick={this.logout.bind(this)}>
-            Logout
-          </Button>
-        </div>
-      </div>
+      <Row>
+        <Col md="9" sm="6">
+          Good day, {this.state.name}!
+        </Col>
+        <Col md="3" sm="6">
+          <Button onClick={this.logout.bind(this)} size="sm">Logout</Button>
+        </Col>
+      </Row>
     ) :
     (
       <div>

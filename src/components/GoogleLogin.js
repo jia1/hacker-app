@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import { GoogleLogin } from 'react-google-login';
 
 // https://medium.com/@alexanderleon/implement-social-authentication-with-react-restful-api-9b44f4714fa
-class Login extends Component {
+class GoogleLoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,4 +62,4 @@ class Login extends Component {
   }
 }
 
-export default GoogleLogin;
+export default GoogleLoginComponent;

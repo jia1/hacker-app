@@ -29,14 +29,18 @@ class FacebookGroupPage extends Component {
         </Row>
         <Row>
           <Col md="3">
-            <SideTabs />
+            <SideTabs templateType="facebookGroupPost" />
           </Col>
           <Col md="9">
             <Row>
-              <FacebookLogin broadcastLoginState={this.updateLoginState.bind(this)} />
+              <Col md="12">
+                <FacebookLogin broadcastLoginState={this.updateLoginState.bind(this)} />
+              </Col>
             </Row>
             <Row>
-              <FacebookGroup isLoggedIn={this.state.isLoggedIn} />
+              <Col md="12">
+                <FacebookGroup loginState={this.state} />
+              </Col>
             </Row>
           </Col>
         </Row>
