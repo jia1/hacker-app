@@ -26,7 +26,13 @@ class Tabs extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href={routes.FACEBOOKGROUP}>Facebook page</NavLink>
+                <NavLink href={routes.FACEBOOKGROUP}>Deal with unreplied emails</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href={routes.FACEBOOKGROUP}>Post on Facebook group</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href={routes.FACEBOOKGROUP}>Tweet something</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

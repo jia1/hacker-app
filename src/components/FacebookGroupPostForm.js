@@ -45,6 +45,7 @@ class FacebookGroupPostForm extends React.Component {
   }
 
   render() {
+    console.log(`this.getCanSubmit() returns: ${this.getCanSubmit()}`);
     return (
       <Formsy
         onValidSubmit={this.submit}
@@ -58,7 +59,13 @@ class FacebookGroupPostForm extends React.Component {
           value={this.props.messageTemplate}
           required
         />
-        <Button type="submit" disabled={!this.getCanSubmit.bind(this)}>Submit</Button>
+        <Button
+          color={this.getCanSubmit() ? 'primary' : 'secondary'}
+          disabled={!this.getCanSubmit()}
+          type="submit"
+        >
+          Post
+        </Button>
       </Formsy>
     );
   }
