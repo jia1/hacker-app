@@ -16,7 +16,8 @@ class FacebookGroupPage extends Component {
     super(props);
     this.state = {
       loginState: facebookLoggedOutState,
-      messageTemplate: ''
+      messageTemplate: '',
+      variableNames: []
     };
   }
 
@@ -27,8 +28,11 @@ class FacebookGroupPage extends Component {
   }
 
   updateMessageTemplate(messageTemplate) {
+    // {messageTemplate: String, variableNames: [String]}
     this.setState({
-      messageTemplate
+      ...messageTemplate
+    }, () => {
+      console.log(this.state);
     });
   }
 
@@ -58,6 +62,7 @@ class FacebookGroupPage extends Component {
                 <FacebookGroup
                   accessToken={this.state.loginState.accessToken}
                   messageTemplate={this.state.messageTemplate}
+                  messageVariables={this.state.variableNames}
                 />
               </Col>
             </Row>

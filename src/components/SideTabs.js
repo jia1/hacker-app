@@ -16,7 +16,19 @@ class SideTabs extends Component {
   }
 
   useTemplate(event, templateId) {
-    this.props.broadcastMessageTemplate(this.state.templates[templateId].message);
+    const messageTemplate = this.state.templates[templateId].message;
+    let toReplace = messageTemplate.match(/{[^\s{}]*}/g); // Can be more rigorous.
+    // TODO: Refactor this
+    if (toReplace === null) {
+      toReplace = [];
+    }
+    const variableNames = toReplace.map((stringToReplace) => {
+      return stringToReplace.replace(/[{}]/g, '');
+    });
+    this.props.broadcastMessageTemplate({
+      messageTemplate,
+      variableNames
+    });
   }
 
   render() {

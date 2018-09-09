@@ -8,6 +8,7 @@ class FacebookGroup extends Component {
         <FacebookGroupPostForm
           accessToken={this.props.accessToken}
           messageTemplate={this.props.messageTemplate}
+          messageVariables={this.props.messageVariables}
         />
       </div>
     );
